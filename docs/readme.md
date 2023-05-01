@@ -1,0 +1,1 @@
+1. /etc/sysconfig/network中修改hostname

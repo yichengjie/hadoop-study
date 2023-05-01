@@ -40,6 +40,7 @@ public class WordCountApp {
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
         //6. 设置输入和输出路径
+        job.setNumReduceTasks(3);
         //FileInputFormat.setInputPaths(job,new Path("F:/input/inputWord.txt"));
         // FileOutputFormat.setOutputPath(job,new Path("F:/output")); // 输出路径不能存在，如果已经存在就报异常.
         FileInputFormat.setInputPaths(job,new Path(args[0]));
