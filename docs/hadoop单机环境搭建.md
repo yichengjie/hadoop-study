@@ -108,3 +108,7 @@
        </property>
    </configuration>
    ```
+12. 启动hadoop
+```text
+start-all.sh
+```
