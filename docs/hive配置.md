@@ -36,7 +36,8 @@
         </property>
     </configuration>
     ```
-5. 删除hive-3.1.3/lib/guava-19.0.jar
-6. 将hadoop-3.1.3/share/hadoop/common/lib中的guava-27.0-jre.jar复制到hive-3.1.3/lib中
-7. 格式化hive: schematool -dbType mysql -initSchema
-8. 验证hive: hive
+5. 复制mysql-connector-java-8.0.25.jar 到hive-3.1.3/lib中
+6. 删除hive-3.1.3/lib/guava-19.0.jar
+7. 将hadoop-3.1.3/share/hadoop/common/lib中的guava-27.0-jre.jar复制到hive-3.1.3/lib中
+8. 格式化hive: schematool -dbType mysql -initSchema
+9. 验证hive: hive
