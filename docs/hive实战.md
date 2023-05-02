@@ -34,3 +34,29 @@
 6. 导入部门表数据: LOAD DATA LOCAL INPATH '/home/hadoop/data/dept.txt' OVERWRITE INTO TABLE dept ;
 7. select a.empno, a.ename, a.job, b.dname from emp a, dept b where a.deptno = b.deptno ;
 8. select a.deptno, count(1) from emp a, dept b where a.deptno = b.deptno group by a.deptno ;
+9. insert into dept values (50, 'test', 'test') ;
+10. delete from dept where deptno = '50' ;
+#### 行转列
+1. 创建表
+   ```text
+   create table emp_info(
+       id string,
+       name string,
+       dept string,
+       sex string
+   ) row format delimited fields terminated by ',';
+   ```
+2. 加载数据: load data local inpath '/home/hadoop/data/emp_info.txt' OVERWRITE INTO TABLE emp_info ;
+3. 将部门与性别拼接在一起：
+   ```sql 
+   select concat_ws(',',a.dept,a.sex) dept_sex , a.name from emp_info a  ;
+   ```
+4. 子查询
+   ```sql
+   select t.dept_sex, concat_ws('|',collect_set(t.name)) 
+   from (
+       select name, concat_ws(',', dept, sex) dept_sex from emp_info
+   ) t group by t.dept_sex ;
+   ```
+#### 博客
+1. https://blog.csdn.net/qq_41575918/article/details/127755508

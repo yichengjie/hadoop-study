@@ -75,6 +75,14 @@
            <name>hadoop.tmp.dir</name>
            <value>/home/hadoop/app/tmp</value>
        </property>
+       <!--<property>
+           <name>dfs.namenode.name.dir</name>
+           <value>/home/hadoop/app/tmp/dfs/name</value>
+       </property>
+        <property>
+           <name>dfs.datanode.name.dir</name>
+           <value>/home/hadoop/app/tmp/dfs/data</value>
+       </property>-->
    </configuration>
    ```
 8. workers
