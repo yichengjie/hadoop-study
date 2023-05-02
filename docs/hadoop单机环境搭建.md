@@ -60,7 +60,7 @@
    <configuration>
        <property>
            <name>fs.defaultFS</name>
-           <value>hdfs://hadoop100:8020</value>
+           <value>hdfs://hadoop100:9000</value>
        </property>
    </configuration>
    ```
@@ -109,6 +109,8 @@
    </configuration>
    ```
 12. 启动hadoop
-```text
-start-all.sh
-```
+   ```text
+   start-all.sh
+   ```
+13. http://hadoop100:8088/
+14. http://hadoop100:9870/
