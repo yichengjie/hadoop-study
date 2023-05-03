@@ -58,5 +58,16 @@
        select name, concat_ws(',', dept, sex) dept_sex from emp_info
    ) t group by t.dept_sex ;
    ```
+#### 列转行
+1. TRUNCATE TABLE column2row ;
+2. 建表
+   ```text
+   create table column2row(
+       name string,
+       courses string
+   ) row format delimited fields terminated by '\t';
+   ```
+3. 导入数据：load data local inpath '/home/hadoop/data/column2row.txt' OVERWRITE INTO TABLE column2row ;
+4. 行转列：select name, course from column2row lateral view explode(split(courses, ',')) course_tmp as course ;
 #### 博客
 1. https://blog.csdn.net/qq_41575918/article/details/127755508
