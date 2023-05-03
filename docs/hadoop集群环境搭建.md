@@ -89,7 +89,7 @@
    hadoop102有ResourceManager和NodeManager
    ```
 4. 访问nodenode：http://hadoop101:9870
-5. 访问yarn: http://hadoop102:19888
+5. 访问yarn: http://hadoop102:8088
 ### 其他补充
 1. mwget下载（wget如果下载太慢可以使用mwget下载）
    ```text
@@ -170,7 +170,7 @@
        <!-- 指定ResourceManager的地址-->
        <property>
            <name>yarn.resourcemanager.hostname</name>
-           <value>hadoop103</value>
+           <value>hadoop101</value>
        </property>
        <!-- 环境变量的继承 -->
        <property>
