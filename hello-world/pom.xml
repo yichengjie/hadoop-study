@@ -76,7 +76,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>com.yicj.hello.WordCountApp</mainClass>
+                            <mainClass>com.yicj.hello.wordcount.WordCountApp</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
