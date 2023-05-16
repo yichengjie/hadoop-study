@@ -41,7 +41,7 @@ public class HelloWorldApp {
         // Shows at most 5 rows from the dataframe
         ndf.show(5);
         //
-        String url = "jdbc:mysql://localhost/imoocdemo?characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai" ;
+        String url = "jdbc:mysql://localhost:3306/imoocdemo?characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai" ;
         String table = "tbl_order_1" ;
         final Properties properties = new Properties() ;
         properties.put("driver", "com.mysql.cj.jdbc.Driver") ;
