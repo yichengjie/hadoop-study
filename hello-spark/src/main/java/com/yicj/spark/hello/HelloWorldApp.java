@@ -2,7 +2,13 @@ package com.yicj.spark.hello;
 
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
+import org.apache.spark.sql.SaveMode;
 import org.apache.spark.sql.SparkSession;
+
+import java.util.Properties;
+
+import static org.apache.spark.sql.functions.concat;
+import static org.apache.spark.sql.functions.lit;
 
 /**
  * @author: yicj
@@ -30,7 +36,19 @@ public class HelloWorldApp {
         Dataset<Row> df = spark.read().format("csv")
                 .option("header", "true")
                 .load("D:\\opt\\spark\\helloworld\\input\\data.csv");
+        Dataset<Row> ndf = df.withColumn("name",
+                concat(df.col("product_code"), lit(","), df.col("amount")));
         // Shows at most 5 rows from the dataframe
-        df.show(5);
+        ndf.show(5);
+        //
+        String url = "jdbc:mysql://localhost/imoocdemo?characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai" ;
+        String table = "tbl_order_1" ;
+        final Properties properties = new Properties() ;
+        properties.put("driver", "com.mysql.cj.jdbc.Driver") ;
+        properties.put("user", "root") ;
+        properties.put("password", "root") ;
+        ndf.write()
+                .mode(SaveMode.Overwrite)
+                .jdbc(url, table, properties);
     }
 }
