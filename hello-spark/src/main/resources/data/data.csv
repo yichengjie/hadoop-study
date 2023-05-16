@@ -1,0 +1,4 @@
+"id","user_id","title","create_time","update_time","is_original","author","cover","summary","price","download_url","buy_count","show_flag","audit_status","reason"
+1,1,SpringCloud”Îjava,"2020-06-06 14:08:48","2020-06-06 14:08:48",0,yicj,xxx,"",0,"",1,0,NOT_YET,""
+2,1,xxx,"2020-06-06 14:08:51","2020-06-06 14:08:51",0,yicj,xxx,"",0,"",1,0,NOT_YET,""
+3,0,xxx,"2020-10-03 14:03:29","2020-10-03 14:03:29",0,yicj,xxx,"",0,"",1,0,NOT_YET,""
