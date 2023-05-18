@@ -21,9 +21,10 @@ public class HelloWorldApp {
                 .getOrCreate();
         // Reads a CSV file with header, called books.csv, stores it in a
         // dataframe
-        Dataset<Row> df = spark.read().format("csv")
+        Dataset<Row> df = spark.read()
+                .format("csv")
                 .option("header", "true")
-                .load("D:\\data\\spark\\helloworld\\input\\data.csv");
+                .load("data/data.csv");
         df.show(5);
     }
 }
