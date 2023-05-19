@@ -2,6 +2,7 @@ package com.yicj.spark.textfile;
 
 import org.apache.spark.api.java.function.FilterFunction;
 import org.apache.spark.sql.Dataset;
+import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 
 /**
@@ -10,7 +11,7 @@ import org.apache.spark.sql.SparkSession;
  */
 public class HelloTextApp {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         String logFile = "data/SogouQ.sample.txt"; // Should be some file on your system
         SparkSession spark = SparkSession.builder()
                 .appName("CSV to Dataset")
@@ -19,9 +20,13 @@ public class HelloTextApp {
         Dataset<String> logData = spark.read()
                 .textFile(logFile)
                 .cache();
-        long numAs = logData.filter((FilterFunction<String>) s -> s.contains("00717725924582846")).count();
-        long numBs = logData.filter((FilterFunction<String>) s -> s.contains("41416219018952116")).count();
-        System.out.println("Lines with a: " + numAs + ", lines with b: " + numBs);
+
+        logData.createTempView("user");
+//        long numAs = logData.filter((FilterFunction<String>) s -> s.contains("00717725924582846")).count();
+//        long numBs = logData.filter((FilterFunction<String>) s -> s.contains("41416219018952116")).count();
+//        System.out.println("Lines with a: " + numAs + ", lines with b: " + numBs);
+        Dataset<Row> sqlDF = spark.sql("select * from user where value like '%07594220%' ");
+        sqlDF.show();
         spark.stop();
     }
 }

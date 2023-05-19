@@ -18,17 +18,20 @@ public class HelloSqlApp {
 
     //https://gitcode.net/mirrors/apache/spark?utm_source=csdn_github_accelerator
     //D:\opt\spark\helloworld\input\SogouQ.sample.txt
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
         SparkSession spark = SparkSession.builder()
                 .appName("CSV to Dataset")
                 .master("local")
                 .getOrCreate();
         Dataset<Row> df = spark.read().json("data/people.json");
-        df.show();
-        df.printSchema();
-        df.select(col("name"), col("age").plus(1)).show();
-        df.filter(col("age").gt(21)).show();
-        df.groupBy("age").count().show();
+//        df.show();
+//        df.printSchema();
+//        df.select(col("name"), col("age").plus(1)).show();
+//        df.filter(col("age").gt(21)).show();
+//        df.groupBy("age").count().show();
+        df.createTempView("user");
+        Dataset<Row> sqlDf = spark.sql("select * from user ");
+        sqlDf.show();
         spark.close();
     }
 }
