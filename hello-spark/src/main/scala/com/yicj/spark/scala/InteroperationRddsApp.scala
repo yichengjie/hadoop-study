@@ -38,6 +38,7 @@ object InteroperationRddsApp {
 
     println(maps)
 
+    spark.stop()
   }
 
 }

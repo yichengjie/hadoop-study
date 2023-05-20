@@ -33,7 +33,7 @@ object CreatingDatasetsApp {
     val peopleDS = spark.read.json(path).as[Person]
     peopleDS.show()
 
-
+    spark.stop()
   }
 
   case class Person(name:String, age:Long)

@@ -35,7 +35,7 @@ object HelloWorldApp {
 //    //
 //    spark.newSession().sql("select * from global_temp.people").show()
 
-    spark.close()
+    spark.stop()
   }
 
 }

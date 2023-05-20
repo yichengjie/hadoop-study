@@ -22,6 +22,7 @@ object GenericLoadSaveApp {
       .format("json")
       .save("output/namesAndAges.parquet")
 
+    spark.stop()
   }
 
 }

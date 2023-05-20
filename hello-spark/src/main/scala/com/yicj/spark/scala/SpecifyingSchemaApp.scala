@@ -34,6 +34,8 @@ object SpecifyingSchemaApp {
     //
     import spark.implicits._
     results.map(attributes => "Name : " + attributes.getAs[String]("name")).show()
+
+    spark.stop()
   }
 
 }
