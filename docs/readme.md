@@ -8,3 +8,4 @@
    ./configure && make -j4 && make install
    mwget -v
    ```
+4. spark elt: https://blog.csdn.net/weixin_46117281/article/details/121978605
