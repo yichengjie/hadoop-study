@@ -1,4 +1,4 @@
-package com.yicj.spark.textfile;
+package com.yicj.spark.hello;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.spark.SparkConf;

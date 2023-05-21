@@ -1,5 +1,6 @@
-package com.yicj.spark.csv;
+package com.yicj.spark.hello;
 
+import org.apache.spark.sql.Column;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
@@ -22,6 +23,7 @@ public class HelloCsvApp {
                 .format("csv")
                 .option("header", "true")
                 .load("data/data.csv");
-        df.show(5);
+        df.withColumn("name",new Column("count"))
+            .show(5);
     }
 }

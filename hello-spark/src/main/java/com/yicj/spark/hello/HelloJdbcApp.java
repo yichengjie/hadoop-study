@@ -1,4 +1,4 @@
-package com.yicj.spark.jdbc;
+package com.yicj.spark.hello;
 
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;

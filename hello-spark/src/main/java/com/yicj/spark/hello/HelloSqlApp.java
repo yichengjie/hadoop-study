@@ -1,4 +1,4 @@
-package com.yicj.spark.sql;
+package com.yicj.spark.hello;
 
 import org.apache.spark.SparkContext;
 import org.apache.spark.api.java.function.FilterFunction;
