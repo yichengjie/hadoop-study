@@ -20,8 +20,8 @@ public class WordCountApp {
     static Logger logger = LoggerFactory.getLogger(WordCountApp.class) ;
 
     public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
-        logger.info("input arg[0] : {}", args[0]);
-        logger.info("input arg[1] : {}", args[1]);
+        //logger.info("input arg[0] : {}", args[0]);
+        //logger.info("input arg[1] : {}", args[1]);
         //1. 创建一个Job对象
         Configuration conf = WordCountApp.initConfiguration();
         Job job = Job.getInstance(conf);
@@ -38,8 +38,8 @@ public class WordCountApp {
         job.setOutputValueClass(IntWritable.class);
         //6. 设置输入和输出路径
         job.setNumReduceTasks(1);
-        FileInputFormat.setInputPaths(job,new Path("D:\\opt\\hadoop\\wordcount\\input\\word.txt"));
-        FileOutputFormat.setOutputPath(job,new Path("D:\\opt\\hadoop\\wordcount\\output")); // 输出路径不能存在，如果已经存在就报异常.
+        FileInputFormat.setInputPaths(job,new Path("data/word.txt"));
+        FileOutputFormat.setOutputPath(job,new Path("output/wordcount/output")); // 输出路径不能存在，如果已经存在就报异常.
         //FileInputFormat.setInputPaths(job,new Path(args[0]));
         //FileOutputFormat.setOutputPath(job,new Path(args[1]));
         //7. 提交job
