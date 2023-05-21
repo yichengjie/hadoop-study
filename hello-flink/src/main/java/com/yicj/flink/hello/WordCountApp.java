@@ -34,7 +34,7 @@ public class WordCountApp {
     }
 
 
-    static class MyFlatMapper implements FlatMapFunction<String, Tuple2<String, Integer>>{
+    public static class MyFlatMapper implements FlatMapFunction<String, Tuple2<String, Integer>>{
         @Override
         public void flatMap(String value, Collector<Tuple2<String, Integer>> out) throws Exception {
             for (String word : value.split(" ")) {

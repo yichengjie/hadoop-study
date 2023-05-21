@@ -9,3 +9,4 @@
    mwget -v
    ```
 4. spark elt: https://blog.csdn.net/weixin_46117281/article/details/121978605
+5. nc64 -l -p 7788
