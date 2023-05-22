@@ -31,7 +31,9 @@ public class HelloTextApp {
         Dataset<Row> sqlDF = spark.sql("select * from user where value like '%07594220%' ");
         sqlDF.show();
 
+        spark.sql("drop table user") ;
         //
+        logData.createTempView("user");
         long start = System.currentTimeMillis();
         Dataset<Row> sqlDF2 = spark.sql("select * from user where value like '%07594220%' ");
         sqlDF2.show();
