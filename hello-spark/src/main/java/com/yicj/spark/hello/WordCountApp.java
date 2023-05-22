@@ -15,6 +15,7 @@ import scala.Tuple2;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -30,16 +31,50 @@ public class WordCountApp {
         String path = "data/world_count.txt";
         SparkConf conf = new SparkConf().setAppName(appName).setMaster(master);
         JavaSparkContext sc = new JavaSparkContext(conf);
+        // java实现
+        countJava(sc, path);
+        System.out.println("-----------------------------------");
+        // java8实现
+        //countJava8(sc, path);
+    }
+
+
+    private static void countJava(JavaSparkContext sc, String path){
         JavaRDD<String> distFile = sc.textFile(path);
-//        JavaPairRDD<String, Integer> countRdd = distFile.mapToPair(s -> new Tuple2<>(s, 1))
-//                .reduceByKey((a, b) -> a + b);
-//        //countRdd.foreach(System.out::println);
-//        List<Tuple2<String, Integer>> collect = countRdd.collect();
-//        collect.forEach(tuple -> System.out.println(tuple));
-        distFile.flatMap((FlatMapFunction<String, String>) s -> Arrays.stream(s.split(" ")).collect(Collectors.toList()).iterator())
+        JavaRDD<String> splitRdd = distFile.flatMap(new FlatMapFunction<String, String>() {
+            @Override
+            public Iterator<String> call(String line) throws Exception {
+                return Arrays.stream(line.split(" ")).iterator();
+            }
+        });
+        //
+        JavaPairRDD<String, Integer> splitFlagRdd = splitRdd.mapToPair(new PairFunction<String, String, Integer>() {
+            @Override
+            public Tuple2<String, Integer> call(String word) throws Exception {
+                return new Tuple2<>(word, 1);
+            }
+        });
+        // reduceByKey 会将splitFlagRdd中的key相同的放在一起处理
+        // 传入(x,y)中，x是上一次统计后的value，y是本次单词的value，即每一次是 x + 1
+        JavaPairRDD<String, Integer> countRdd = splitFlagRdd.reduceByKey(new Function2<Integer, Integer, Integer>() {
+            @Override
+            public Integer call(Integer v1, Integer v2) throws Exception {
+                return v1 + v2;
+            }
+        });
+        // 将计算后的结果保存
+        countRdd.saveAsTextFile("output/wordCountJava");
+    }
+
+
+
+    private static void countJava8(JavaSparkContext sc, String path){
+        JavaRDD<String> distFile = sc.textFile(path);
+        distFile.flatMap((FlatMapFunction<String, String>) s -> Arrays.stream(s.split(" ")).iterator())
                 .mapToPair((PairFunction<String, String, Integer>) word -> new Tuple2<>(word, 1))
                 .reduceByKey((Function2<Integer, Integer, Integer>) Integer::sum)
-                .foreach((VoidFunction<Tuple2<String, Integer>>) System.out::println);
+                .saveAsTextFile("output/wordCountJava8");
+                //.foreach((VoidFunction<Tuple2<String, Integer>>) System.out::println);
     }
 
 }
