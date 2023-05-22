@@ -1,5 +1,6 @@
 package com.yicj.spark.hello;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.function.FilterFunction;
 import org.apache.spark.sql.Dataset;
@@ -10,6 +11,7 @@ import org.apache.spark.sql.SparkSession;
  * @author: yicj
  * @date: 2023/5/18 22:32
  */
+@Slf4j
 public class HelloTextApp {
 
     public static void main(String[] args) throws Exception {
@@ -28,6 +30,12 @@ public class HelloTextApp {
 //        System.out.println("Lines with a: " + numAs + ", lines with b: " + numBs);
         Dataset<Row> sqlDF = spark.sql("select * from user where value like '%07594220%' ");
         sqlDF.show();
+
+        //
+        long start = System.currentTimeMillis();
+        Dataset<Row> sqlDF2 = spark.sql("select * from user where value like '%07594220%' ");
+        sqlDF2.show();
+        log.info("===========> take time : {}", (System.currentTimeMillis() - start));
         spark.stop();
     }
 }

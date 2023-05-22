@@ -11,6 +11,7 @@
         <module>hello-world</module>
         <module>hello-spark</module>
         <module>hello-flink</module>
+        <module>hello-spark-scala</module>
     </modules>
 
     <properties>

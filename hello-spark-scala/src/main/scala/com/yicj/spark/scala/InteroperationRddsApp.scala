@@ -10,7 +10,7 @@ object InteroperationRddsApp {
     val spark = SparkSession.builder()
       .appName("rdds app")
       .master("local")
-      .getOrCreate() ;
+      .getOrCreate();
 
     import spark.implicits._
     // create an rdd of person objects from a text file, convert it to a Dataframe
@@ -19,7 +19,7 @@ object InteroperationRddsApp {
       .textFile(path)
       .map(_.split(","))
       .map(attributes => Person(attributes(0), attributes(1).trim.toInt))
-      .toDF() ;
+      .toDF();
     // register the dataFrame as temporary view
     peopleDF.createOrReplaceTempView("people")
     //
@@ -32,7 +32,7 @@ object InteroperationRddsApp {
     teenagersDF.map(teenager => "Name : " + teenager.getAs[String]("name")).show()
 
     //
-    implicit  val mapEncoder = org.apache.spark.sql.Encoders.kryo[Map[String,Any]]
+    implicit val mapEncoder = org.apache.spark.sql.Encoders.kryo[Map[String, Any]]
 
     val maps = teenagersDF.map(teenager => teenager.getValuesMap[Any](List("name", "age"))).collect()
 
