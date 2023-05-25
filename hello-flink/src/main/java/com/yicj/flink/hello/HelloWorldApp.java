@@ -16,7 +16,6 @@ public class HelloWorldApp {
 
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-        env.read
         DataStreamSource<Person> flintstones = env.fromElements(
                 new Person("Fred", 35),
                 new Person("Wilma", 35),
