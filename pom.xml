@@ -12,6 +12,7 @@
         <module>hello-spark</module>
         <module>hello-flink</module>
         <module>hello-spark-scala</module>
+        <module>frauddetection</module>
     </modules>
 
     <properties>
@@ -19,8 +20,9 @@
         <maven.compiler.target>8</maven.compiler.target>
         <scala.version>2.12</scala.version>
         <spark.version>3.1.2</spark.version>
-        <flink.version>1.14.3</flink.version>
+        <flink.version>1.17.0</flink.version>
         <junit.version>4.13.1</junit.version>
+        <log4j.version>2.17.1</log4j.version>
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
     </properties>
 
@@ -69,22 +71,28 @@
                 <artifactId>flink-java</artifactId>
                 <version>${flink.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/org.apache.flink/flink-streaming-java -->
+
             <dependency>
                 <groupId>org.apache.flink</groupId>
-                <artifactId>flink-streaming-java_2.12</artifactId>
+                <artifactId>flink-streaming-java</artifactId>
                 <version>${flink.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/org.apache.flink/flink-clients -->
+
             <dependency>
                 <groupId>org.apache.flink</groupId>
-                <artifactId>flink-clients_2.12</artifactId>
+                <artifactId>flink-clients</artifactId>
                 <version>${flink.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/org.apache.flink/flink-core -->
+
             <dependency>
                 <groupId>org.apache.flink</groupId>
                 <artifactId>flink-core</artifactId>
+                <version>${flink.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-walkthrough-common</artifactId>
                 <version>${flink.version}</version>
             </dependency>
 
@@ -109,7 +117,20 @@
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>
                 <artifactId>log4j-slf4j-impl</artifactId>
-                <version>2.12.0</version>
+                <version>${log4j.version}</version>
+                <scope>runtime</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-api</artifactId>
+                <version>${log4j.version}</version>
+                <scope>runtime</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
+                <version>${log4j.version}</version>
+                <scope>runtime</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
