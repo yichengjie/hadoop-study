@@ -38,14 +38,20 @@ public class FraudDetector extends KeyedProcessFunction<Long, Transaction, Alert
 	private static final double LARGE_AMOUNT = 500.00;
 	private static final long ONE_MINUTE = 60 * 1000;
 
-	private ValueState<Boolean> flagStatus ;
+	private transient ValueState<Boolean> flagState ;
+	private transient ValueState<Long> timerState ;
+
 
 
 	@Override
 	public void open(Configuration parameters) throws Exception {
 		ValueStateDescriptor<Boolean> flagDescriptor =
 				new ValueStateDescriptor<>("flag", Types.BOOLEAN);
-		flagStatus = getRuntimeContext().getState(flagDescriptor) ;
+		flagState = getRuntimeContext().getState(flagDescriptor) ;
+		//
+		ValueStateDescriptor<Long> timerDescriptor =
+				new ValueStateDescriptor<>("timer-state", Types.LONG);
+		timerState = getRuntimeContext().getState(timerDescriptor) ;
 	}
 
 	@Override
@@ -53,9 +59,8 @@ public class FraudDetector extends KeyedProcessFunction<Long, Transaction, Alert
 			Transaction transaction,
 			Context context,
 			Collector<Alert> collector) throws Exception {
-
 		// Get the current state for the current key
-		Boolean lastTransactionWasSmall = flagStatus.value();
+		Boolean lastTransactionWasSmall = flagState.value();
 		if (lastTransactionWasSmall != null){
 			if (transaction.getAmount() > LARGE_AMOUNT){
 				Alert alert = new Alert();
@@ -63,12 +68,33 @@ public class FraudDetector extends KeyedProcessFunction<Long, Transaction, Alert
 				collector.collect(alert);
 			}
 			// Clean up our state
-			flagStatus.clear();
+			cleanUp(context);
 		}
-
 		if (transaction.getAmount() < SMALL_AMOUNT){
 			// Set the flag to true
-			flagStatus.update(true);
+			flagState.update(true);
+			// set the timer and timer state
+			long timer = context.timerService().currentProcessingTime() + ONE_MINUTE ;
+			context.timerService().registerProcessingTimeTimer(timer);
+			timerState.update(timer);
 		}
+	}
+
+
+	@Override
+	public void onTimer(long timestamp, KeyedProcessFunction<Long, Transaction, Alert>.OnTimerContext ctx, Collector<Alert> out) throws Exception {
+		// remove flag after 1 minite
+		timerState.clear();
+		flagState.clear();
+	}
+
+
+	private void cleanUp(Context ctx) throws Exception{
+		// delete timer
+		Long timer = timerState.value();
+		ctx.timerService().deleteEventTimeTimer(timer);
+		//clean up all state
+		timerState.clear();
+		flagState.clear();
 	}
 }
