@@ -11,7 +11,6 @@
         <module>hello-world</module>
         <module>hello-spark</module>
         <module>hello-flink</module>
-        <module>hello-spark-scala</module>
         <module>frauddetection</module>
     </modules>
 
@@ -19,7 +18,7 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <scala.version>2.12</scala.version>
-        <spark.version>3.1.2</spark.version>
+        <spark.version>3.4.0</spark.version>
         <flink.version>1.17.0</flink.version>
         <junit.version>4.13.1</junit.version>
         <log4j.version>2.17.1</log4j.version>
@@ -50,19 +49,19 @@
             <dependency>
                 <groupId>org.apache.spark</groupId>
                 <artifactId>spark-core_2.12</artifactId>
-                <version>${spark.version}</version>
+                <version>3.4.0</version>
             </dependency>
 
             <dependency>
                 <groupId>org.apache.spark</groupId>
                 <artifactId>spark-sql_2.12</artifactId>
-                <version>${spark.version}</version>
+                <version>3.4.0</version>
             </dependency>
 
             <dependency>
                 <groupId>org.apache.spark</groupId>
-                <artifactId>spark-mllib_${scala.version}</artifactId>
-                <version>${spark.version}</version>
+                <artifactId>spark-mllib_2.12</artifactId>
+                <version>3.4.0</version>
             </dependency>
 
 
